@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 
 	"direcgory/config"
 	"direcgory/repository"
@@ -19,19 +18,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer db.Close()
 
 	r := repository.NewDirectoryRepository(db)
 	run(r)
 }
 
 func connect() (*sql.DB, error) {
-	fmt.Println(config.DriverName)
-	fmt.Println(config.DataSourceName)
 	db, err := sql.Open(config.DriverName, config.DataSourceName)
 	if err != nil {
 		return nil, err
 	}
-	defer db.Close()
 
 	return db, nil
 }

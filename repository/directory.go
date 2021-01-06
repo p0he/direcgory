@@ -54,7 +54,7 @@ func (r *DirectoryRepository) Create() error {
 	fmt.Print("TEL >")
 	fmt.Scan(&d.Phone)
 
-	const sql = "INSERT INTO directory(name, phone) values (?. ?)"
+	const sql = "INSERT INTO directory(name, phone) values (?, ?)"
 
 	stmt, err := r.db.Prepare(sql)
 	if err != nil {
@@ -62,7 +62,7 @@ func (r *DirectoryRepository) Create() error {
 	}
 	defer stmt.Close()
 
-	_, err = r.db.Exec(d.Name, d.Phone)
+	_, err = stmt.Exec(d.Name, d.Phone)
 	if err != nil {
 		return err
 	}

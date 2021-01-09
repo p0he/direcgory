@@ -1,1 +1,1 @@
-Directory in Go.
+Directory written in Go.
